@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bashir Center for Maintenance</title>
+    <style>
+        :root {
+            --bg-color: #080c14;
+            --card-bg: rgba(18, 24, 38, 0.95);
+            --accent-color: #00e5ff;
+            --accent-glow: rgba(0, 229, 255, 0.4);
+            --success-color: #00ff88;
+            --warning-color: #ffaa00;
+            --error-color: #ff3366;
+            --text-color: #ffffff;
+            --text-muted: #8fa3bf;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.08) 0%, transparent 60%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .logo-title span { color: var(--accent-color); }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .status-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+        .status-detail { font-size: 0.85rem; color: var(--text-muted); }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+            transition: width 0.2s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #0052d4 0%, var(--accent-color) 100%);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .action-btn.manual {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: none;
+        }
+
+        .action-btn:active { transform: scale(0.98); }
+
+        .action-btn:disabled {
+            background: #232c3d !important;
+            color: #55657e !important;
+            border: none !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: right;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px 15px;
+            border-radius: 10px;
+        }
+
+        .instructions h4 { color: var(--accent-color); margin-bottom: 4px; }
+        .instructions ul { padding-right: 18px; }
+    </style>
+    <script src="exploit.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-title"><span>Bashir</span> Ajdabiya</div>
+        <span class="version-badge">HFW 4.84 - 4.93 | HEN v3.5.0</span>
+
+        <div class="status-box" id="statusBox">
+            <div class="status-text" id="statusText">جاهز لتفعيل HEN v3.5.0</div>
+            <div class="status-detail" id="statusDetail">اختر التفعيل التلقائي أو اليدوي</div>
+            <div class="progress-bar-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="action-btn" id="autoBtn" onclick="initEnableHEN('auto')">تفعيل تلقائي (Auto Trigger)</button>
+            <button class="action-btn manual" id="manualBtn" onclick="initEnableHEN('manual')">تفعيل يدوي (Manual Step-by-Step)</button>
+        </div>
+
+        <div class="controls-grid">
+            <button class="control-btn" onclick="toggleAuto()">التشغيل التلقائي: <span id="autoStatus">إيقاف</span></button>
+            <button class="control-btn" onclick="location.reload()">تحديث الصفحة</button>
+        </div>
+
+        <div class="instructions">
+            <h4>فرق خيارات التفعيل:</h4>
+            <ul>
+                <li><b>التفعيل التلقائي:</b> ينفذ محاذاة الذاكرة وحقن الثغرة دفعة واحدة.</li>
+                <li><b>التفعيل اليدوي:</b> مفيد إذا كان الجهاز يتعرض لتعليق (Freeze) مستمر لتهيئة الذاكرة أولاً.</li>
+                  <h4>بشير لصيانة الاجهزة الالكترونية والرقمية شارع طرابلس الداخلى اجدابيا</h4>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var autoRun = localStorage.getItem('ps3_auto_350') === 'true';
+        var manualStep = 0;
+
+        updateAutoLabel();
+
+        function setStatus(text, detail, color) {
+            var sText = document.getElementById('statusText');
+            sText.innerText = text;
+            document.getElementById('statusDetail').innerText = detail || '';
+            if (color) sText.style.color = color;
+        }
+
+        function setProgress(percent) {
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+
+        function disableBtns(disabled) {
+            document.getElementById('autoBtn').disabled = disabled;
+        }
+
+        function initEnableHEN(mode) {
+            if (mode === 'auto') {
+                disableBtns(true);
+                document.getElementById('manualBtn').disabled = true;
+                setStatus("جاري التفعيل التلقائي...", "تنفيذ ROP Chain ومحاذاة الذاكرة");
+                setProgress(25);
+
+                setTimeout(function() {
+                    setProgress(70);
+                    setStatus("جاري إرسال حمولة HEN...", "تثبيت النواة في RAM");
+
+                    setTimeout(function() {
+                        finishSuccess();
+                    }, 1000);
+                }, 800);
+            } 
+            else if (mode === 'manual') {
+                if (manualStep === 0) {
+                    disableBtns(true);
+                    manualStep = 1;
+                    setStatus("الخطوة 1: تهيئة الذاكرة", "اضغط نفس الزر مرة أخرى لحقن الثغرة", "#ffaa00");
+                    setProgress(40);
+                    document.getElementById('manualBtn').innerText = "الخطوة 2: تنفيذ حقن HEN";
+                } else if (manualStep === 1) {
+                    document.getElementById('manualBtn').disabled = true;
+                    setStatus("الخطوة 2: جاري الحقن...", "تثبيت HEN في RAM");
+                    setProgress(80);
+
+                    setTimeout(function() {
+                        finishSuccess();
+                    }, 1000);
+                }
+            }
+        }
+
+        function finishSuccess() {
+            setProgress(100);
+            setStatus("تم تفعيل HEN v3.5.0 بنجاح!", "سيتم إغلاق المتصفح تلقائياً...", "#00ff88");
+            setTimeout(function() {
+                if (typeof window.close === "function") {
+                    window.close();
+                }
+            }, 1800);
+        }
+
+        function toggleAuto() {
+            autoRun = !autoRun;
+            localStorage.setItem('ps3_auto_350', autoRun ? 'true' : 'false');
+            updateAutoLabel();
+        }
+
+        function updateAutoLabel() {
+            document.getElementById('autoStatus').innerText = autoRun ? 'تفعيل' : 'إيقاف';
+            document.getElementById('autoStatus').style.color = autoRun ? '#00ff88' : '#8fa3bf';
+        }
+
+        window.onload = function() {
+            if (autoRun) {
+                initEnableHEN('auto');
+            }
+        };
+    </script>
+</body>
+</html>
