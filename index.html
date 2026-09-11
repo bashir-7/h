@@ -1,0 +1,288 @@
+<!DOCTYPE html> 
+<html lang="ar" dir="rtl"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>مركز بشير لصيانة وتعديل الأجهزة الإلكترونية</title> 
+    
+    <style> 
+        :root {
+            --primary-color: #00f2fe;
+            --secondary-color: #4facfe;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --text-color: #f8fafc;
+            --danger-color: #ef4444;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; 
+        } 
+
+        body { 
+            background: #0b1120;
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            color: var(--text-color); 
+            overflow: hidden;
+            position: relative;
+        } 
+
+        /* --- خلفية متحركة خفيفة مناسبة لـ PS4 --- */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: moveBlob 12s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .blob-1 {
+            width: 350px;
+            height: 350px;
+            background: #0088b6;
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: #4facfe;
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -6s;
+        }
+
+        .blob-3 {
+            width: 280px;
+            height: 280px;
+            background: #3b82f6;
+            top: 40%;
+            left: 50%;
+            animation-duration: 16s;
+        }
+
+        @keyframes moveBlob {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(60px, 40px) scale(1.15);
+            }
+        }
+
+        /* --- بطاقة الحالة الرئيسية --- */
+        .container { 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            width: 100%; 
+            z-index: 1;
+        } 
+
+        .status-card { 
+            background: var(--card-bg); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px; 
+            padding: 40px 30px; 
+            width: 100%; 
+            max-width: 580px; 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+                        0 0 30px rgba(0, 242, 254, 0.15); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            gap: 25px; 
+            border: 1px solid var(--card-border); 
+            position: relative;
+        } 
+
+        /* الشعار العلوي */
+        .brand-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .status-message { 
+            font-size: 1.35rem; 
+            font-weight: 600; 
+            line-height: 1.6; 
+            color: var(--text-color); 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        } 
+
+        /* مؤشر التحميل الحديث */
+        .loader-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader { 
+            width: 100%; 
+            height: 100%; 
+            border: 3px solid rgba(255, 255, 255, 0.05); 
+            border-top-color: var(--primary-color); 
+            border-right-color: var(--secondary-color);
+            border-radius: 50%; 
+            animation: spin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite; 
+            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4));
+        } 
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        } 
+
+        .fw-highlight {
+            color: var(--danger-color);
+            font-weight: bold;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* إخفاء شريط التقدم البديل */
+        progress, 
+        .progress-bar, 
+        .bar, 
+        #bar, 
+        #progress { 
+            display: none !important; 
+        } 
+    </style> 
+</head> 
+<body> 
+
+<!-- عناصر الخلفية المتحركة -->
+<div class="bg-animation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<div class="container"> 
+    <div class="status-card"> 
+        <div class="brand-badge">مركز بشير للصيانة والتعديل</div>
+        
+        <div id="loader-wrapper" class="loader-container">
+            <span id="loader" class="loader"></span> 
+        </div>
+        
+        <h2 id="msgs" class="status-message">جارٍ تحميل GoldHEN... يُرجى الانتظار</h2> 
+    </div> 
+</div> 
+
+<script> 
+document.addEventListener("DOMContentLoaded", function () {
+    var msgs = document.getElementById("msgs");
+    var loaderWrapper = document.getElementById("loader-wrapper");
+
+    var uaFull = navigator.userAgent; 
+    var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i); 
+    var isPS4 = match !== null; 
+    var fwVersion = isPS4 ? match[1] : "Unknown"; 
+    var fwNum = parseFloat(fwVersion); 
+
+    function hideLoader() { 
+        if (loaderWrapper) { 
+            loaderWrapper.style.display = "none"; 
+        } 
+    } 
+
+    function onScriptError() { 
+        hideLoader(); 
+        msgs.innerHTML = "عذراً، امسح بيانات المتصفح وأعد تثبيت ذاكرة التخزين المؤقت..."; 
+    } 
+
+    if (!isPS4) { 
+        hideLoader(); 
+        msgs.innerHTML = "مخصص فقط لأجهزة PS4 بإصدارات البرامج الثابتة من 9.00 إلى 13.00"; 
+    } else { 
+        if (window.applicationCache && window.applicationCache.status == '0') { 
+            if (fwNum >= 9.00 && fwNum <= 9.60) { 
+                window.location.replace("cache900.html"); 
+            } else if (fwNum >= 10.00 && fwNum <= 11.02) { 
+                window.location.replace("cachecss.html"); 
+            } else if (fwNum >= 11.50 && fwNum <= 13.00) { 
+                window.location.replace("cacheslopkit.html"); 
+            } else { 
+                hideLoader(); 
+                msgs.innerHTML = 'البرامج الثابتة غير المدعومة: <span class="fw-highlight">' + fwVersion + '</span>'; 
+            } 
+        } else { 
+            var script = document.createElement('script'); 
+            script.onerror = onScriptError;
+
+            if (fwNum >= 9.00 && fwNum <= 9.60) { 
+                script.type = 'module'; 
+                script.src = "900/alert.js"; 
+            } else if (fwNum >= 10.00 && fwNum <= 11.02) { 
+                script.src = "css/main.js"; 
+                script.onload = function () { 
+                    setTimeout(function () { 
+                        if (typeof doJb === "function") doJb(); 
+                    }, 500); 
+                }; 
+            } else if (fwNum >= 11.50 && fwNum <= 12.02) { 
+                script.type = 'module'; 
+                script.src = "slopkit/chain_lapse.js"; 
+            } else if (fwNum >= 12.50 && fwNum <= 13.00) { 
+                script.type = 'module'; 
+                script.src = "slopkit/chain_poops.js"; 
+            } else { 
+                hideLoader(); 
+                msgs.innerHTML = 'البرامج الثابتة غير المدعومة: <span class="fw-highlight">' + fwVersion + '</span>'; 
+                return;
+            } 
+
+            document.head.appendChild(script); 
+        } 
+    } 
+});
+</script> 
+
+</body> 
+</html>
