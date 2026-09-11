@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    /* خلفية داكنة عميقة تميل لأسود الكربون الفخم */
+    background: radial-gradient(circle at center, #1a1510 0%, #0a0806 100%); 
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* توهج خلفي ناعم باللون الذهبي الدافئ */
+body::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: #d4af37;
+    filter: blur(160px);
+    opacity: 0.12;
+    top: 20%;
+    left: 20%;
+    z-index: 0;
+}
+
+.container {
+    /* تصميم زجاجي داكن بلمسة ذهبية محيطية */
+    background: rgba(22, 19, 16, 0.75); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 24px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 
+                0 0 40px rgba(212, 175, 55, 0.08);
+    position: relative;
+    z-index: 1;
+}
+
+.header-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffd700; /* ذهبي مضيء */
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    border: none;
+    margin-bottom: 35px;
+}
+
+.status-card {
+    background: rgba(10, 8, 6, 0.5);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 16px;
+    padding: 30px 25px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.status-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8fafc;
+    line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* الدائرة الدوّارة النيونية باللون الذهبي والأحمر المتوهج */
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(212, 175, 55, 0.1);
+    border-top-color: #ffd700; /* ذهبي مضيء */
+    border-right-color: #ef4444; /* أحمر نيوني */
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.25),
+                0 0 10px rgba(239, 68, 68, 0.15);
+}
+
+/* صندوق شريط التقدم بتصميم متناسق مع الواجهة الداكنة */
+.progress-box {
+    width: 100%;
+    max-width: 500px;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* شريط التقدم بتدرج ذهبي متوهج حاد واحترافي */
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #d4af37, #ffd700);
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    transition: width 0.3s ease;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

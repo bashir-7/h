@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html manifest="css.manifest" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مركز بشير لصيانة وتعديل الأجهزة الإلكترونية</title>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            /* خلفية داكنة عميقة تميل لأسود الكربون الفخم */
+            background: radial-gradient(circle at center, #1a1510 0%, #0a0806 100%); 
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f8fafc;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* توهج خلفي ناعم باللون الذهبي الدافئ */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: #d4af37;
+            filter: blur(160px);
+            opacity: 0.12;
+            top: 20%;
+            left: 20%;
+            z-index: 0;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-card {
+            /* تصميم زجاجي داكن بلمسة ذهبية */
+            background: rgba(22, 19, 16, 0.75); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px; 
+            padding: 50px 40px; 
+            width: 100%; 
+            max-width: 650px; 
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 
+                        0 0 40px rgba(212, 175, 55, 0.08); 
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.15); 
+        }
+
+        .status-message {
+            font-size: 1.35rem; 
+            font-weight: 500; 
+            line-height: 1.7; 
+            color: #f3f4f6; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* الدائرة الدوّارة النيونية باللون الذهبي والأحمر المتوهج */
+        .loader {
+            width: 56px; 
+            height: 56px; 
+            border: 4px solid rgba(212, 175, 55, 0.1); 
+            border-top-color: #ffd700; /* ذهبي مضيء */
+            border-right-color: #ef4444; /* أحمر نيوني */
+            border-radius: 50%; 
+            animation: spin 1s infinite cubic-bezier(0.4, 0, 0.2, 1); 
+            display: inline-block;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.25),
+                        0 0 10px rgba(239, 68, 68, 0.15);
+        }
+
+        /* صندوق شريط التقدم بتصميم متناسق مع الواجهة الداكنة */
+        .progress-box {
+            width: 100%;
+            max-width: 450px;
+            height: 14px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* شريط التقدم بتدرج ذهبي متوهج */
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #ffd700);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            transition: width 0.3s ease;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<script>
+history.replaceState(null, null, 'index.html');
+var histlength = history.length;
+history.go(-histlength);
+
+function DLProgress(e) {
+    var percent = Math.round(e.loaded / e.total * 100);
+    
+    window.msgs.innerHTML = "تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت...";
+    
+    var bar = document.getElementById("bar");
+    if (bar) {
+        bar.style.width = percent + "%";
+    }
+}
+
+function DisplayCacheProgress() {
+    var bar = document.getElementById("bar");
+    if (bar) {
+        bar.style.width = "100%";
+    }
+    
+    window.msgs.innerHTML = "تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";
+    setTimeout(function() {
+        window.msgs.innerHTML = "يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله ...";
+    }, 1500);
+}
+
+window.applicationCache.addEventListener("progress", DLProgress, false);
+window.applicationCache.oncached = function(e) { DisplayCacheProgress(); };
+window.applicationCache.onupdateready = function(e) { DisplayCacheProgress(); };
+window.applicationCache.onerror = function(e) { 
+    window.msgs.innerHTML = "حدث خطأ أثناء تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت وأعد فتح المتصفح ..."; 
+};
+</script>
+
+<div class="container">
+    <div class="status-card">
+        <span class="loader"></span>
+        <h2 id="msgs" class="status-message">بدء تثبيت ذاكرة التخزين المؤقت...</h2>
+        
+        <div class="progress-box">
+            <div id="bar" class="progress-bar"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
