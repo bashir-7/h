@@ -1,8 +1,9 @@
 CACHE MANIFEST 
+# التحديث والنسق الرقمي الجديد: 2026-09-14
 
 CACHE:
 index.html
-style.css
+cache900.html
 goldhen_2.4b18.10.bin
 900/alert.js
 900/config.js
