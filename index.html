@@ -15,7 +15,6 @@
         .status-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 40px 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px; } 
         .status-message { font-size: 1.4rem; font-weight: 700; line-height: 1.6; background: linear-gradient(120deg, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #ffffff; } 
         
-        /* إخفاء أي أشرطة أو عناصر تحميل قديمة أو مستدعاة */
         #loader, .percentage-loader, progress, .progress-bar, .bar, #bar, #progress, .progress-box { display: none !important; } 
     </style> 
 </head> 
@@ -25,7 +24,7 @@
 var uaFull = navigator.userAgent; 
 var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i); 
 var isPS4 = match !== null; 
-var fwVersion = isPS4 ? match : "Unknown"; 
+var fwVersion = isPS4 ? match[1] : "Unknown"; // تصحيح استخلاص النص المباشر من المصفوفة
 var fwNum = parseFloat(fwVersion); 
 
 function hideLoader() { } 
@@ -73,7 +72,6 @@ if (!isPS4) {
 
 <div class="container"> 
     <div class="status-card"> 
-        <!-- تم ترك المعرف مخفياً تماماً بالـ CSS لضمان عدم حدوث أخطاء جافاسكريبت، ولتظهر الصفحة نظيفة للغاية -->
         <span id="loader" style="display:none !important;"></span> 
         <h2 id="msgs" class="status-message">جارٍ تحميل GoldHEN يُرجى الانتظار</h2> 
     </div> 
