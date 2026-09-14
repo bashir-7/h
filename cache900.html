@@ -74,7 +74,7 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; 
-            gap: 30px; 
+            gap: 25px; 
             border: 1px solid rgba(255, 255, 255, 0.07); 
             position: relative;
         }
@@ -91,7 +91,7 @@
             border-radius: 0 0 4px 4px;
         }
 
-            .status-message {
+        .status-message {
             font-size: 1.4rem; 
             font-weight: 700; 
             line-height: 1.6; 
@@ -102,73 +102,18 @@
             color: #ffffff;
         }
 
-        .loader {
-            width: 80px; 
-            height: 80px; 
-            border: 3px solid transparent; 
-            border-top-color: #00f2fe; 
-            border-bottom-color: #00f2fe;
-            border-radius: 50%; 
-            animation: spin 1.5s infinite linear; 
+        /* تصميم العداد الرقمي النيون الموحد */
+        .percentage-loader { 
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f2fe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
             display: inline-block;
-            position: relative;
-        }
-
-        .loader::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
-            border: 3px solid transparent;
-            border-left-color: #ff007f;
-            border-right-color: #ff007f;
-            border-radius: 50%;
-            animation: spin-reverse 1s infinite linear;
-        }
-
-        .loader::after {
-            content: '';
-            position: absolute;
-            top: 22px;
-            left: 22px;
-            width: 12px;
-            height: 12px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #00f2fe, 0 0 30px #00f2fe;
-        }
-
-          .progress-box {
-            width: 100%;
-            max-width: 450px;
-            height: 12px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #ff007f, #00f2fe);
-            border-radius: 10px;
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes spin-reverse { 
-            0% { transform: rotate(360deg); } 
-            100% { transform: rotate(0deg); } 
+            margin-bottom: 5px;
         } 
     </style>
 </head>
@@ -184,16 +129,17 @@ function DLProgress(e) {
     
     window.msgs.innerHTML = "تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت";
     
+    // حقن النسبة المئوية داخل العداد الرقمي مباشرة
     var bar = document.getElementById("bar");
     if (bar) {
-        bar.style.width = percent + "%";
+        bar.innerHTML = percent + "%";
     }
 }
 
 function DisplayCacheProgress() {
     var bar = document.getElementById("bar");
     if (bar) {
-        bar.style.width = "100%";
+        bar.innerHTML = "100%";
     }
     
     window.msgs.innerHTML = "تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";
@@ -212,12 +158,9 @@ window.applicationCache.onerror = function(e) {
 
 <div class="container">
     <div class="status-card">
-        <span class="loader"></span>
+        <!-- العداد الرقمي النيون مع الحفاظ على الـ id ليعمل السكريبت بنجاح -->
+        <span id="bar" class="percentage-loader">0%</span>
         <h2 id="msgs" class="status-message">بدء تثبيت ذاكرة التخزين المؤقت</h2>
-        
-        <div class="progress-box">
-            <div id="bar" class="progress-bar"></div>
-        </div>
     </div>
 </div>
 
