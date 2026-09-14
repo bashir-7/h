@@ -29,12 +29,17 @@ function DLProgress(e) {
     var percent = Math.round(e.loaded / e.total * 100);
     window.msgs.innerHTML = "تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت";
     var bar = document.getElementById("bar");
-    if (bar) { bar.innerHTML = percent + "%"; }
+    if (bar) { 
+        bar.style.display = "inline-block"; 
+        bar.innerHTML = percent + "%"; 
+    }
 }
 
 function DisplayCacheProgress() {
     var bar = document.getElementById("bar");
-    if (bar) { bar.innerHTML = "100%"; }
+    if (bar) { 
+        bar.style.display = "none"; 
+    }
     window.msgs.innerHTML = "تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";
     setTimeout(function() {
         window.msgs.innerHTML = "يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله ";
@@ -45,6 +50,8 @@ window.applicationCache.addEventListener("progress", DLProgress, false);
 window.applicationCache.oncached = function(e) { DisplayCacheProgress(); };
 window.applicationCache.onupdateready = function(e) { DisplayCacheProgress(); };
 window.applicationCache.onerror = function(e) { 
+    var bar = document.getElementById("bar");
+    if (bar) { bar.style.display = "none"; }
     window.msgs.innerHTML = "حدث خطأ أثناء تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت وأعد فتح المتصفح"; 
 };
 </script>
