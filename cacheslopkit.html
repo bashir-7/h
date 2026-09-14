@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html manifest="slopkit.manifest" lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز بشير لصيانة وتعديل الأجهزة الإلكترونية</title>
-    
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; } 
-        body { background: radial-gradient(circle at 50% 50%, #1a1b26 0%, #0a0b10 100%); color: #f8fafc; min-height: 100vh; display: flex; justify-content: center; align-items: center; direction: rtl; padding: 20px; overflow: hidden; position: relative; } 
-        body::before { content: ''; position: absolute; width: 300px; height: 300px; background: linear-gradient(45deg, #00f2fe, #4facfe); filter: blur(150px); opacity: 0.2; top: 20%; right: 20%; z-index: 0; } 
-        body::after { content: ''; position: absolute; width: 300px; height: 300px; background: linear-gradient(45deg, #ff007f, #7928ca); filter: blur(150px); opacity: 0.15; bottom: 20%; left: 20%; z-index: 0; } 
-        .container { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 40px 30px; width: 100%; max-width: 750px; text-align: center; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1); z-index: 1; position: relative; } 
-        .container::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 4px; background: linear-gradient(90deg, transparent, #00f2fe, #ff007f, transparent); border-radius: 0 0 4px 4px; } 
-        .status-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 30px 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px; } 
-        .status-message { font-size: 1.4rem; font-weight: 700; line-height: 1.6; background: linear-gradient(120deg, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #ffffff; } 
-        .percentage-loader { font-size: 3.5rem; font-weight: 800; background: linear-gradient(135deg, #00f2fe, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-variant-numeric: tabular-nums; letter-spacing: 1px; text-shadow: 0 0 20px rgba(0, 242, 254, 0.4); display: inline-block; margin-bottom: 5px; } 
-        progress, .progress-bar, .bar, #progress, .progress-box { display: none !important; }
-    </style>
-</head>
-<body>
-
 <script>
 history.replaceState(null, null, 'index.html');
 var histlength = history.length;
@@ -29,12 +7,18 @@ function DLProgress(e) {
     var percent = Math.round(e.loaded / e.total * 100);
     window.msgs.innerHTML = "تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت";
     var bar = document.getElementById("bar");
-    if (bar) { bar.innerHTML = percent + "%"; }
+    if (bar) { 
+        bar.style.display = "inline-block"; // إظهاره أثناء التحميل
+        bar.innerHTML = percent + "%"; 
+    }
 }
 
 function DisplayCacheProgress() {
     var bar = document.getElementById("bar");
-    if (bar) { bar.innerHTML = "100%"; }
+    if (bar) {
+        bar.style.display = "none"; // إخفاء العداد تماماً عند النجاح
+    }
+    
     window.msgs.innerHTML = "تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";
     setTimeout(function() {
         window.msgs.innerHTML = "يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله";
@@ -45,16 +29,8 @@ window.applicationCache.addEventListener("progress", DLProgress, false);
 window.applicationCache.oncached = function(e) { DisplayCacheProgress(); };
 window.applicationCache.onupdateready = function(e) { DisplayCacheProgress(); };
 window.applicationCache.onerror = function(e) { 
+    var bar = document.getElementById("bar");
+    if (bar) { bar.style.display = "none"; } // إخفائه في حالة الخطأ
     window.msgs.innerHTML = "حدث خطأ أثناء تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت وأعد فتح المتصفح"; 
 };
 </script>
-
-<div class="container">
-    <div class="status-card">
-        <span id="bar" class="percentage-loader">0%</span>
-        <h2 id="msgs" class="status-message">بدء تثبيت ذاكرة التخزين المؤقت</h2>
-    </div>
-</div>
-
-</body>
-</html>
