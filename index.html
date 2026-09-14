@@ -24,7 +24,7 @@
             position: relative;
         } 
 
-             body::before {
+        body::before {
             content: '';
             position: absolute;
             width: 300px;
@@ -59,7 +59,7 @@
             z-index: 1;
         } 
 
-              .status-card { 
+        .status-card { 
             background: rgba(255, 255, 255, 0.03); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -74,7 +74,7 @@
             align-items: center; 
             justify-content: center; 
             text-align: center; 
-            gap: 30px; 
+            gap: 25px; 
             border: 1px solid rgba(255, 255, 255, 0.07); 
             position: relative;
         } 
@@ -102,54 +102,21 @@
             color: #ffffff;
         } 
 
-        .loader { 
-            width: 80px; 
-            height: 80px; 
-            border: 3px solid transparent; 
-            border-top-color: #00f2fe; 
-            border-bottom-color: #00f2fe;
-            border-radius: 50%; 
-            animation: spin 1.5s infinite linear; 
+        /* تصميم عداد النسبة المئوية المطور بدلاً من الدائرة الدوارة */
+        .percentage-loader { 
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f2fe, #ff007f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
             display: inline-block;
-            position: relative;
+            margin-bottom: 5px;
         } 
 
-        .loader::before {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
-            border: 3px solid transparent;
-            border-left-color: #ff007f;
-            border-right-color: #ff007f;
-            border-radius: 50%;
-            animation: spin-reverse 1s infinite linear;
-        }
-
-        .loader::after {
-            content: '';
-            position: absolute;
-            top: 22px;
-            left: 22px;
-            width: 12px;
-            height: 12px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #00f2fe, 0 0 30px #00f2fe;
-        }
-
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        } 
-
-        @keyframes spin-reverse { 
-            0% { transform: rotate(360deg); } 
-            100% { transform: rotate(0deg); } 
-        } 
-
+        /* إخفاء أشرطة التقدم التقليدية المحملة خارجياً */
         progress, 
         .progress-bar, 
         .bar, 
@@ -244,7 +211,8 @@ if (!isPS4) {
 
 <div class="container"> 
     <div class="status-card"> 
-        <span id="loader" class="loader"></span> 
+        <!-- استبدال اللودر بعداد النسبة المئوية % مع الحفاظ على الـ id لسلامة السكربتات -->
+        <span id="loader" class="percentage-loader">0%</span> 
         <h2 id="msgs" class="status-message">جارٍ تحميل GoldHEN يُرجى الانتظار</h2> 
     </div> 
 </div> 
