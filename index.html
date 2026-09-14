@@ -24,12 +24,13 @@
 var uaFull = navigator.userAgent; 
 var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i); 
 var isPS4 = match !== null; 
-var fwVersion = isPS4 ? match[1] : "Unknown"; // تصحيح استخلاص النص المباشر من المصفوفة
+var fwVersion = isPS4 ? match[1] : "Unknown"; // الإصلاح الجذري: جلب الجزء النصي الصافي لرقم التحديث من المصفوفة
 var fwNum = parseFloat(fwVersion); 
 
 function hideLoader() { } 
 
 function onScriptError() { 
+    hideLoader();
     msgs.innerHTML = "عذراً، امسح بيانات المتصفح وأعد تثبيت ذاكرة التخزين المؤقت"; 
 } 
 
