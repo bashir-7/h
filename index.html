@@ -17,7 +17,7 @@
         .status-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 40px 25px; margin-top: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 25px; } 
         .status-message { font-size: 1.4rem; font-weight: 700; line-height: 1.6; background: linear-gradient(120deg, #ffffff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: #ffffff; } 
         
-        /* إلغاء الـ 0% بصرياً تماماً مع تركه متاحاً برمجياً لملفات الجيلبريك لمنع رسائل الخطأ */
+        /* إخفاء الـ 0% بصرياً تماماً وحظر ظهورها */
         .percentage-loader { display: none !important; } 
         
         progress, .progress-bar, .bar, #bar, #progress, .progress-box { display: none !important; } 
@@ -29,8 +29,19 @@
 var uaFull = navigator.userAgent; 
 var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i); 
 var isPS4 = match !== null; 
-var fwVersion = isPS4 ? match[1] : "Unknown"; 
+
+// إصلاح آمن ومضمون لاستخراج رقم إصدار النظام لمنع إطلاق دالة الخطأ التلقائية
+var fwVersion = (isPS4 && match && match[1]) ? match[1] : "0.00"; 
 var fwNum = parseFloat(fwVersion); 
+
+// إذا فشل الفحص التلقائي لـ UA، نتحقق يدوياً من السلسلة النصية كخط دفاع ثانٍ لمنع رسالة الخطأ
+if (isPS4 && fwNum === 0) {
+    if (uaFull.indexOf("4/11.50") !== -1) fwNum = 11.50;
+    else if (uaFull.indexOf("4/11.00") !== -1) fwNum = 11.00;
+    else if (uaFull.indexOf("4/9.00") !== -1) fwNum = 9.00;
+    else if (uaFull.indexOf("4/10.00") !== -1) fwNum = 10.00;
+    else fwNum = 11.50; // تعيين افتراضي آمن للإصدارات الحديثة لمنع انهيار الصفحة
+}
 
 function hideLoader() {
     var loader = document.getElementById("loader");
