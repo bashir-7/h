@@ -31,7 +31,9 @@ var fwNum = parseFloat(fwVersion);
 
 function hideLoader() {
     var loader = document.getElementById("loader");
-    if (loader) { loader.style.display = "none"; }
+    if (loader) { 
+        loader.style.display = "none"; // السطر البرمجي المسؤول عن إخفاء العداد تماماً عند استدعائه
+    }
 }
 
 function onScriptError() { 
@@ -56,6 +58,25 @@ if (!isPS4) {
             }); 
         } 
     } else { 
+        // المراقبة التلقائية لتغير النص البرمجي؛ لإخفاء العداد فور نجاح تحميل الموديلات والـ GoldHEN
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    var currentText = window.msgs.innerHTML;
+                    if (currentText.includes("نجاح") || currentText.includes("بنجاح") || currentText.includes("GoldHEN") && !currentText.includes("تحميل")) {
+                        hideLoader();
+                    }
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const targetNode = document.getElementById('msgs');
+            if (targetNode) {
+                observer.observe(targetNode, { childList: true });
+            }
+        });
+
         if (fwNum >= 9.00 && fwNum <= 9.60) { 
             var script = document.createElement('script'); script.type = 'module'; script.src = "900/alert.js"; script.onerror = onScriptError; document.head.appendChild(script); 
         } 
