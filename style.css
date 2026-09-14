@@ -1,0 +1,99 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+    color: #f8fafc;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.header-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    border: none;
+    margin-bottom: 35px;
+}
+
+.status-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 12px;
+    padding: 30px 25px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.status-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8fafc;
+    line-height: 1.6;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #1e293b;
+    border-bottom-color: #38bdf8;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.progress-box {
+    width: 100%;
+    max-width: 500px;
+    height: 14px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #0088b6, #38bdf8);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
