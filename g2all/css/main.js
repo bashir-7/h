@@ -53,7 +53,7 @@ async function doJb() {
     }
 
     if (fn.setuid.invoke(0) !== -1) {
-      msgs.innerHTML = "تم تحميل GoldHEN بالفعل .تحياتي، مركز بشير ";
+      msgs.innerHTML = "بالفعل .تحياتي، مركز بشير GoldHEN تم تحميل ";
       return;
     }
 
@@ -111,10 +111,10 @@ async function doJb() {
       load_bin(bin_u8);
     }
 
-    msgs.innerHTML = "تم تحميل GoldHEN بنجاح .تحياتي، مركز بشير";
+    msgs.innerHTML = "تحياتي، مركز بشير GoldHEN تم تحميل";
     logger.info("===END===");
   } catch (e) {
-    msgs.innerHTML = "فشل التحميل للأسف! أعد تشغيل جهازك .تحياتي، مركز بشير";
+    msgs.innerHTML = "فشل التحميل للأسف! أعد تشغيل جهازك ";
     msgs.style.color = "yellow";
   }
 }
