@@ -41,14 +41,14 @@ const STOP_BEFORE_DOUBLE = params.get("stop") === "beforedouble";
 function hostOk() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "تم تحميل GoldHEN بنجاح .تحياتي، مركز بشير";
+        m.innerHTML = " تحياتي، مركز بشير GoldHEN تم تحميل ";
     }
 }
 
 function hostFail() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "فشل التحميل! أعد تشغيل جهازك .تحياتي، مركز بشير";
+        m.innerHTML = "ففشل التفعيل! يرجى إعادة تشغيل جهازك .تحياتي، مركز بشيرر";
         m.style.color = "yellow";
     }
 }
@@ -455,7 +455,7 @@ let payloadRunning = false;
                 mark("ALREADY-ROOT", "getuid=" + uid0 + " setuid(0)=" + su0);
                 var m = document.getElementById("msgs");
                 if (m) {
-                    m.innerHTML = "تم تحميل GoldHEN بالفعل .تحياتي، مركز بشير";
+                    m.innerHTML = " بالفعل .تحياتي، مركز بشير GoldHEN تم تحميل ";
                 }
                 return;
             }
