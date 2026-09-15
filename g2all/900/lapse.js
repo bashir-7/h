@@ -1695,7 +1695,7 @@ export async function kexploit() {
     }
     
     if (localStorage.ExploitLoaded === "yes" && sessionStorage.ExploitLoaded != "yes") {
-        msgs.innerHTML = "GoldHEN is Already Loaded ...";
+        msgs.innerHTML = "تم تحميل GoldHEN بالفعل .تحياتي، مركز بشير";
         return new Promise(() => {});
     }
  
