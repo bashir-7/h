@@ -43,7 +43,7 @@ function hostOk() {
 function hostFail() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "فشل التفعيل! يرجى إعادة تشغيل جهاز PS4.تحياتي، مركز بشير";
+        m.innerHTML = "فشل التفعيل! يرجى إعادة تشغيل جهازك .تحياتي، مركز بشير";
         m.style.color = "yellow";
     }
 }
@@ -676,7 +676,7 @@ function makeRpc(worker) {
                 mark("ALREADY-ROOT", "getuid=" + uid0 + " setuid(0)=" + su0);
                 var m = document.getElementById("msgs");
                 if (m) {
-                    m.innerHTML = "تم تحميل GoldHEN بالفعل .تحياتي، مركز بشير";
+                    m.innerHTML = " بالفعل .تحياتي، مركز بشير GoldHEN تم تحميل";
                 }
                 return;
             }
