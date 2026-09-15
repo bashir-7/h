@@ -1,0 +1,81 @@
+html, body {
+    background-color: #121212;
+    /* إضافة طبقة تدرج غامقة لتوضيح الأزرار والنصوص فوق الشعار */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('img.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-size: 25px;
+    color: #ffffff;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+a {
+    text-decoration: none;
+}
+
+#progress, #menu {
+    display: block;
+}
+
+#crypto, #tools, #lnx, #mods {
+    display: none;
+}
+
+/* الأزرار الأساسية - خفيفة وسريعة الاستجابة */
+.btn {
+    background-color: #003263;
+    color: #ffffff;
+    width: 227px;
+    height: 46px;
+    line-height: 46px;
+    padding: 0;
+    text-align: center;
+    font-size: 18px;
+    margin: 8px 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover, .btn:active {
+    background-color: #0069d9;
+}
+
+.btn-onln {
+    background-color: #076300;
+}
+
+.btn-onln:hover, .btn-onln:active {
+    background-color: #18891b;
+}
+
+.btn-toolbox {
+    background-color: #ae2301;
+}
+
+.btn-toolbox:hover, .btn-toolbox:active {
+    background-color: #d42a01;
+}
+
+.btn-multi {
+    background-color: #b8860b;
+}
+
+.btn-multi:hover, .btn-multi:active {
+    background-color: #daa520;
+}

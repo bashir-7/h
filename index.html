@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bashir-ps4-ps5</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // تنظيف سجل التنقل بأمان دون التسبب في تشنج WebKit
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        function setMsg(text) {
+            var msgs = document.getElementById("msgs");
+            if (msgs) msgs.innerHTML = text;
+        }
+
+        function resetMsg() {
+            setMsg("Bashir-ps4-ps5");
+        }
+
+        function loadPage(url) {
+            setMsg("جاري التوجيه...");
+            setTimeout(function() {
+                window.location.replace(url);
+            }, 100);
+        }
+    </script>
+</head>
+<body>
+
+    <h1 id="msgs">Bashir-ps4-ps5</h1>
+    <hr>
+    <br>
+
+    <div id="menu">
+        <h1 style="font-size: 18px; color: yellow;">اختر البرنامج الثابت</h1>
+        
+        <!-- GoldHEN Multi FW -->
+        <button class="btn btn-multi" 
+                onmouseover="setMsg(' (عدل جهازك الان)')" 
+                onmouseout="resetMsg()" 
+                onclick="loadPage('a/index.html')">
+            اضغط لتعديل جهازك
+        </button>
+        <br>
+    </div>
+
+</body>
+</html>
