@@ -1831,9 +1831,9 @@ function runPayload(PLfile) {
 kexploit().then(() => {
 	setTimeout(() => {
 		runPayload("./goldhen_2.4b18.10.bin");
-		msgs.innerHTML = "تم تحميل GoldHEN بنجاح .تحياتي، مركز بشير";
+		msgs.innerHTML = "تحياتي، مركز بشير GoldHEN تم تحميل";
 	},500);
 }).catch(() => {
-    msgs.innerHTML = "فشل التحميل للأسف! أعد تشغيل جهازك .تحياتي، مركز بشير";
+    msgs.innerHTML = "فشل التحميل للأسف! أعد تشغيل جهازك";
 	msgs.style.color = "yellow";
 });
