@@ -43,7 +43,7 @@ function hostOk() {
 function hostFail() {
     var m = document.getElementById("msgs");
     if (m) {
-        m.innerHTML = "فشل التفعيل! يرجى إعادة تشغيل جهازك .تحياتي، مركز بشير";
+        m.innerHTML = "فشل التحميل للأسف! أعد تشغيل جهازك";
         m.style.color = "yellow";
     }
 }
