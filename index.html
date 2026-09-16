@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مركز بشير</title>
+<style>
+html,body{margin:0;padding:0;width:100%;height:100%;background:#0b0d12;color:#fff;font-family:Arial,sans-serif}
+body{display:flex;align-items:center;justify-content:center;overflow:hidden}
+.container{width:100%;padding:16px;box-sizing:border-box}
+.status-card{max-width:620px;margin:auto;padding:34px 24px;text-align:center;background:#141820;border:1px solid #28303c;border-radius:14px;box-sizing:border-box}
+.status-message{margin:22px 0 0;font-size:24px;line-height:1.6;color:#fff;font-weight:700}
+.loader{display:inline-block;width:54px;height:54px;border:5px solid #303846;border-top-color:#38bdf8;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.loader{animation:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="status-card">
+    <span id="loader" class="loader"></span>
+    <h2 id="msgs" class="status-message">جارٍ تحميل GoldHEN... يُرجى الانتظار</h2>
+  </div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var msgs=document.getElementById('msgs');
+  var loader=document.getElementById('loader');
+  function setMessage(text){if(msgs) msgs.textContent=text;}
+  function hideLoader(){if(loader) loader.style.display='none';}
+  function fail(){hideLoader();setMessage('فشل تحميل أحد الملفات. امسح ذاكرة المتصفح ثم أعد المحاولة.');}
+  function load(src,type,onload){
+    var s=document.createElement('script');
+    if(type) s.type=type;
+    s.src=src;
+    s.onload=onload||null;
+    s.onerror=fail;
+    document.head.appendChild(s);
+  }
+  function unsupported(v){hideLoader();setMessage('إصدار البرامج الثابتة غير مدعوم: '+v);}
+  var ua=navigator.userAgent||'';
+  var match=ua.match(/PlayStation 4[ /]([\d.]+)/i);
+  if(!match){unsupported('هذا الموقع مخصص لـ PS4');return;}
+  var fwVersion=match[1], fwNum=parseFloat(fwVersion);
+  if(!isFinite(fwNum)){unsupported(fwVersion);return;}
+
+  var appCache=window.applicationCache;
+  var cacheStatus=appCache ? appCache.status : 0;
+
+  if(cacheStatus===0){
+    if(fwNum>=9.00 && fwNum<=9.60) location.replace('cache900.html');
+    else if(fwNum>=10.00 && fwNum<=11.02) location.replace('cachecss.html');
+    else if(fwNum>=11.50 && fwNum<=13.00) location.replace('cacheslopkit.html');
+    else unsupported(fwVersion);
+    return;
+  }
+
+  if(fwNum>=9.00 && fwNum<=9.60){
+    load('900/alert.js','module');
+  }else if(fwNum>=10.00 && fwNum<=11.02){
+    load('css/main.js',null,function(){setTimeout(function(){try{doJb();}catch(e){fail();}},250);});
+  }else if(fwNum>=11.50 && fwNum<=13.00){
+    load(fwNum>=12.50?'slopkit/chain_poops.js':'slopkit/chain_lapse.js','module');
+  }else unsupported(fwVersion);
+})();
+</script>
+</body>
+</html>

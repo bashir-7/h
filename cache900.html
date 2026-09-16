@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html manifest="900.manifest" lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>مركز بشير - تثبيت الكاش</title>
+<style>html,body{width:100%;height:100%;margin:0;background:#0b0d12;color:#fff;font-family:Arial,sans-serif}body{display:flex;align-items:center;justify-content:center}.card{width:92%;max-width:620px;padding:30px 20px;text-align:center;background:#141820;border:1px solid #28303c;border-radius:14px;box-sizing:border-box}h2{font-size:22px;line-height:1.6;margin:18px 0}.loader{width:48px;height:48px;border:5px solid #303846;border-top-color:#38bdf8;border-radius:50%;display:inline-block;animation:s 1s linear infinite}.barbox{height:10px;background:#242b36;border-radius:6px;overflow:hidden;margin-top:18px}#bar{height:100%;width:0;background:#38bdf8}@keyframes s{to{transform:rotate(360deg)}}</style>
+</head>
+<body>
+<div class="card"><span class="loader"></span><h2 id="msgs">جارٍ تثبيت ذاكرة التخزين المؤقت...</h2><div class="barbox"><div id="bar"></div></div></div>
+<script>
+(function(){
+'use strict';
+var app=window.applicationCache,msg=document.getElementById('msgs'),bar=document.getElementById('bar'),done=false;
+function text(t){if(msg)msg.textContent=t}
+function finish(t){if(done)return;done=true;if(bar)bar.style.width='100%';text(t)}
+function progress(e){if(e&&e.lengthComputable&&bar)bar.style.width=Math.max(0,Math.min(100,Math.round(e.loaded/e.total*100)))+'%';text('تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت...')}
+if(!app){finish('المتصفح لا يدعم ذاكرة التخزين المؤقت المطلوبة.');return}
+app.addEventListener('checking',function(){text('فحص ذاكرة التخزين المؤقت...')});
+app.addEventListener('downloading',function(){text('بدء تنزيل الملفات...')});
+app.addEventListener('progress',progress);
+app.addEventListener('cached',function(){finish('تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔')});
+app.addEventListener('updateready',function(){try{app.swapCache()}catch(e){}finish('تم تحديث ذاكرة التخزين المؤقت بنجاح ✔')});
+app.addEventListener('noupdate',function(){finish('ذاكرة التخزين المؤقت موجودة بالفعل ✔')});
+app.addEventListener('error',function(){finish('حدث خطأ أثناء تثبيت الكاش. امسح بيانات المتصفح وأعد المحاولة.')});
+setTimeout(function(){if(!done && app.status===1)text('جاري فحص ذاكرة التخزين المؤقت...')} ,500);
+})();
+</script>
+</body>
+</html>
