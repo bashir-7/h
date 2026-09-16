@@ -1,8 +1,0 @@
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-html,body{width:100%;height:100%;margin:0;padding:0;background:#0b0d12;color:#f8fafc}
-body{display:flex;align-items:center;justify-content:center;direction:rtl}
-.container{width:100%;max-width:760px;padding:16px}
-.status-card{background:#141820;border:1px solid #28303c;border-radius:14px;padding:32px 24px;text-align:center}
-.status-message{font-size:24px;line-height:1.6;color:#f8fafc}
-.loader{width:54px;height:54px;border:5px solid #303846;border-top-color:#38bdf8;border-radius:50%;display:inline-block;animation:rotation 1s linear infinite}
-@keyframes rotation{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
