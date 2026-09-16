@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html manifest="slopkit.manifest">
+<head>
+<meta charset="UTF-8">
+<title>Bashir-ps4-ps5</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="<span class='progress-message' dir='rtl'><span class='progress-label'>تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت:</span><span class='progress-percent' dir='ltr'>" + Percent + "%</span></span>";}
+function DisplayCacheProgress(){window.msgs.innerHTML="تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";setTimeout(function(){window.msgs.innerHTML="يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.innerHTML="خطأ في تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت للمتصفح وأعد فتحه.";};
+</script>
+<h1> تحياتى مركز بشير </h1>
+<hr>
+<br>
+<h1 id="msgs" dir="rtl" style="font-size: 30px;margin-top: 77px;margin-bottom: 455px;direction:rtl;unicode-bidi:plaintext;">بدء تثبيت ذاكرة التخزين المؤقت</h1>
+
+</body>
+</html>
