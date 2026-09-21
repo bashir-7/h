@@ -24,7 +24,7 @@ function setProgress(value) {
     var el = document.getElementById("msgs");
     if (!el) return;
     var pct = Math.max(0, Math.min(100, Math.round(value)));
-    el.textContent = "جارٍ تثبيت الكاش... ";
+    el.textContent = "بدء تثبيت ذاكرة التخزين المؤقت... ";
     var span = document.createElement("span");
     span.setAttribute("dir", "ltr");
     span.style.unicodeBidi = "embed";
@@ -37,7 +37,7 @@ function DLProgress(e) {
     }
 }
 function done() {
-    setMsg("تم تجهيز الكاش بنجاح — جارٍ فتح الصفحة...");
+    setMsg("تم تثبيت ذاكرة التخزين المؤقت بنجاح— جارٍ فتح الصفحة...");
     setTimeout(function () {
         location.replace("index.html");
     }, 1200);
@@ -52,13 +52,13 @@ window.applicationCache.addEventListener("noupdate", function () {
     location.replace("index.html");
 }, false);
 window.applicationCache.addEventListener("error", function () {
-    setMsg("تعذر تحديث الكاش — حاول مرة أخرى.");
+    setMsg("خطأ في تثبيت ذاكرة التخزين المؤقت!— حاول مرة أخرى.");
 }, false);
 </script>
 </head>
 <body>
 <h1>بشير لصيانة الاجهزة الالكترونية</h1>
 <hr>
-<div id="msgs">جارٍ تجهيز الكاش...</div>
+<div id="msgs">جارٍتجهيز ذاكرة التخزين المؤقت...</div>
 </body>
 </html>
