@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html manifest="900.manifest">
+<head>
+<title>Bashir PS4/PS5</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+try { history.replaceState(null, null, 'index.html'); } catch (e) {}
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت: <span class=\"cache-percent\" dir=\"ltr\">" + Percent + "%</span>";}
+function DisplayCacheProgress(){window.msgs.innerHTML="تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";setTimeout(function(){window.msgs.innerHTML="يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله ...";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.innerHTML="خطأ في تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت للمتصفح وأعد فتحه....";};
+</script>
+<h1>Bashir / PS4 / 9.00 / 13.00</h1>
+<hr>
+<br>
+<h1 id=msgs style="font-size: 30px;margin-top: 77px;margin-bottom: 455px;">بدء تثبيت ذاكرة التخزين المؤقت...</h1>
+
+</body>
+</html>
