@@ -1,0 +1,124 @@
+html {
+    direction: rtl;
+    background-image: url('img.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #24272b;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+h1 {
+    text-shadow: 0.1em 0.1em 0.2em black;
+    font-size: 25px;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+#progress {
+    display: block;
+}
+
+#menu {
+    display: block;
+}
+
+#crypto {
+    display: none;
+}
+
+#tools {
+    display: none;
+}
+
+#lnx {
+    display: none;
+}
+
+#mods {
+    display: none;
+}
+
+.btn {
+    background-color: #003263;
+    color: white;
+    width: 227px;
+    height: 46px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-style: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #0069d9;
+}
+
+.btn-onln {
+    background-color: #076300;
+}
+
+.btn-onln:hover {
+    background-color: #18891b;
+}
+
+.btn-toolbox {
+    background-color: #ae2301;
+}
+
+.btn-toolbox:hover {
+    background-color: #d42a01;
+}
+
+.btn-multi {
+    background-color: #b8860b;
+}
+
+.btn-multi:hover {
+    background-color: #daa520;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: transparent;
+    color: white;
+    direction: rtl;
+    unicode-bidi: plaintext;
+    overflow: hidden;
+}
+
+#msgs {
+    direction: rtl;
+    unicode-bidi: plaintext;
+    text-align: center;
+
+    /* إطار شفاف وخفيف للرسائل — لا يغيّر أكواد الاستغلال */
+    display: table;
+    max-width: 92%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 28px;
+    background: rgba(10, 22, 48, 0.55);
+    border: 2px solid rgba(8, 20, 42, 0.78);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(8, 20, 42, 0.35), 0 4px 14px rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-size: 34px !important;
+    font-weight: 600;
+    line-height: 1.45;
+    text-shadow: 0.08em 0.08em 0.16em rgba(0, 0, 0, 0.9);
+}
