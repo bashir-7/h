@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html manifest="slopkit.manifest">
+<head>
+<title>Bashir electronic</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="<span dir=\"rtl\">تثبيت ذاكرة التخزين المؤقت دون اتصال بالإنترنت <span dir=\"ltr\" style=\"unicode-bidi:isolate;display:inline-block;\">" + Percent + "%</span></span>";}
+function DisplayCacheProgress(){window.msgs.className="msg-success";window.msgs.innerHTML="تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔✔✔";setTimeout(function(){window.msgs.className="msg-info";window.msgs.innerHTML="يرجى قطع الاتصال بالشبكة، إغلاق المتصفح، وإعادة تشغيله ...";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.className="msg-error";window.msgs.innerHTML="خطأ في تثبيت ذاكرة التخزين المؤقت! - امسح ذاكرة التخزين المؤقت للمتصفح وأعد فتحه ...";};
+</script>
+<div class="header"><span class="dot"></span><span class="brand">BASHIR SYSTEM</span><span class="dot"></span><span class="sub">EXPLOIT HOST • 9.00 — 13.52</span></div><h1>Bashir-9xx-13xx-Arabic UI</h1>
+<hr>
+<br>
+<h1 id=msgs>بدء تثبيت ذاكرة التخزين المؤقت ...</h1>
+
+</body>
+</html>
