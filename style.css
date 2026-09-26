@@ -1,0 +1,91 @@
+/* Bashir PS4 UI - Visual Layer v2 | exploit files untouched */
+:root{
+  --gold:#e9c66a; --gold-soft:#fff0bd; --blue:#63c9ff; --blue-soft:#9be1ff;
+  --blue-deep:#061522; --red:#ff5368; --red-soft:#ff9aa5; --text:#f7fbff;
+}
+*{box-sizing:border-box}
+html{
+  direction:rtl; min-height:100%; background:#030a12 url('img.jpg') center/cover fixed no-repeat;
+  color:var(--text); text-align:center; overflow:hidden;
+  font-family:"Segoe UI","Tahoma","Arial",sans-serif;
+}
+/* Lightweight PS4 atmosphere: CSS-only, no extra image/network request. */
+html::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-3;
+  background:
+    radial-gradient(ellipse at 70% 12%,rgba(70,190,255,.17),transparent 34%),
+    radial-gradient(ellipse at 25% 88%,rgba(40,120,210,.11),transparent 36%),
+    linear-gradient(180deg,rgba(1,8,17,.20),rgba(1,6,13,.73));
+}
+html::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-2;
+  background:
+    linear-gradient(135deg,transparent 0 42%,rgba(120,215,255,.035) 42.2% 42.45%,transparent 42.7%),
+    linear-gradient(315deg,transparent 0 63%,rgba(255,255,255,.025) 63.2% 63.4%,transparent 63.7%);
+  background-size:520px 520px,680px 680px;
+}
+body{
+  position:relative; margin:0; min-height:100vh; padding:28px 18px;
+  background:transparent; color:var(--text); direction:rtl; unicode-bidi:plaintext; overflow:hidden;
+}
+body::before{
+  content:""; position:fixed; left:7%; right:7%; bottom:7%; height:1px; pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(99,201,255,.35),rgba(233,198,106,.55),rgba(99,201,255,.35),transparent);
+  box-shadow:0 0 18px rgba(99,201,255,.18);
+}
+body::after{
+  content:""; position:fixed; width:300px; height:300px; border-radius:50%; top:-150px; left:-110px;
+  background:radial-gradient(circle,rgba(82,195,255,.10),transparent 67%); pointer-events:none;
+}
+.header{
+  position:relative; z-index:1; display:flex; justify-content:center; align-items:center; gap:10px;
+  margin:4px auto 8px; color:#fff; font-size:14px; letter-spacing:3px; text-transform:uppercase; opacity:.88;
+}
+.header .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(233,198,106,.72)}
+.header .brand{font-weight:700;color:var(--gold-soft)}
+.header .sub{font-weight:500;color:#b8e6ff;letter-spacing:1.5px}
+h1{margin:0;text-shadow:0 2px 16px rgba(0,0,0,.78);font-size:25px;color:var(--gold);font-weight:600}
+hr{border:0;height:1px;margin:8px auto 0;max-width:760px;background:linear-gradient(90deg,transparent,rgba(99,201,255,.30),rgba(233,198,106,.62),rgba(99,201,255,.30),transparent)}
+a{text-decoration:none}
+#progress,#menu{display:block}
+#crypto,#tools,#lnx,#mods{display:none}
+.btn{
+  background:rgba(5,24,39,.86); color:#fff; width:227px; height:46px; padding-bottom:5px;
+  text-align:center; font-size:20px; margin:8px 5px; border:1px solid rgba(99,201,255,.26);
+  transition:.2s ease; cursor:pointer; border-radius:12px;
+  box-shadow:0 7px 24px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.btn:hover{background:rgba(7,55,82,.94);border-color:rgba(99,201,255,.65);transform:translateY(-1px)}
+.btn-onln{background:rgba(15,88,34,.88)} .btn-onln:hover{background:rgba(24,137,27,.92)}
+.btn-toolbox{background:rgba(130,38,18,.88)} .btn-toolbox:hover{background:rgba(178,48,20,.94)}
+.btn-multi{background:rgba(120,88,8,.90)} .btn-multi:hover{background:rgba(175,130,15,.94)}
+/* Premium popup frame: layered border + corner accents, CSS only. */
+#msgs{
+  position:relative; direction:rtl; unicode-bidi:plaintext; text-align:center; display:table;
+  max-width:92%; min-width:280px; margin:74px auto 455px; padding:22px 38px 25px;
+  background:linear-gradient(145deg,rgba(8,25,39,.84),rgba(2,10,19,.68));
+  border:1px solid rgba(99,201,255,.48); border-radius:20px;
+  box-shadow:0 18px 55px rgba(0,0,0,.43),inset 0 1px 0 rgba(255,255,255,.12),0 0 30px rgba(64,180,255,.09);
+  color:var(--gold-soft); font-size:32px!important; font-weight:600; line-height:1.5;
+  text-shadow:0 2px 12px rgba(0,0,0,.80);
+}
+#msgs::before{
+  content:""; position:absolute; top:-1px; right:14%; left:14%; height:2px; border-radius:99px;
+  background:linear-gradient(90deg,transparent,var(--blue),#fff,var(--gold),var(--blue),transparent);
+  box-shadow:0 0 14px rgba(99,201,255,.34);
+}
+#msgs::after{
+  content:"BASHIR • SYSTEM READY"; position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+  white-space:nowrap; font-size:10px; letter-spacing:2.2px; font-weight:600; color:rgba(196,220,234,.60);
+}
+/* Four tiny corner marks give the popup a console/HUD feel without extra DOM. */
+#msgs{outline:1px solid rgba(255,255,255,.025);outline-offset:5px}
+#msgs.msg-error{color:#ffabb4!important;border-color:rgba(255,83,104,.78);background:linear-gradient(145deg,rgba(72,11,24,.86),rgba(29,6,13,.72));box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 24px rgba(255,83,104,.14),inset 0 1px 0 rgba(255,255,255,.08)}
+#msgs.msg-error::before{background:linear-gradient(90deg,transparent,#ff5368,#ffd0d5,#ff5368,transparent);box-shadow:0 0 16px rgba(255,83,104,.42)}
+#msgs.msg-error::after{content:"BASHIR • SYSTEM ERROR";color:rgba(255,150,160,.70)}
+#msgs.msg-success{color:#ffe8a4!important;border-color:rgba(233,198,106,.62)}
+#msgs.msg-success::after{content:"BASHIR • CACHE READY";color:rgba(233,198,106,.70)}
+#msgs.msg-info{color:#f2d37e!important}
+#msgs.msg-info::after{content:"BASHIR • INFORMATION";color:rgba(233,198,106,.65)}
+.msg-error-text{color:#ffabb4!important}.msg-gold{color:#f2cc72!important}
+@media(max-width:600px){#msgs{font-size:24px!important;padding:18px 20px;max-width:95%}.header{font-size:11px}.btn{width:90vw;max-width:300px}}
