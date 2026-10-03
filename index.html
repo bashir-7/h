@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bashir Electronic </title>
+<link rel="stylesheet" href="style.css">
+<script>
+var match = navigator.userAgent.match(/PlayStation 4[ /]([\d.]+)/i);
+var isPS4 = match !== null;
+var fwVersion = isPS4 ? match[1] : "0.00";
+var fwParts = fwVersion.split(".");
+var fwCode = (parseInt(fwParts[0], 10) || 0) * 100 + (parseInt(fwParts[1], 10) || 0);
+var BRANCHES = [
+    { versions: [900, 903, 950], cache: "cache900.html", kind: "m900" },
+    { versions: [1000, 1050, 1100, 1102], cache: "cachecss.html", kind: "css" },
+    { versions: [1150, 1200], cache: "cacheslopkit.html", kind: "lapse" },
+    { versions: [1250, 1300], cache: "cacheslopkit.html", kind: "poops" },
+    { versions: [1302, 1350, 1352], cache: "cacheslopkit.html", kind: "jb" }
+];
+var branch = null;
+for (var i = 0; i < BRANCHES.length; i++) {
+    if (BRANCHES[i].versions.indexOf(fwCode) !== -1) {
+        branch = BRANCHES[i];
+        break;
+    }
+}
+function onScriptError() {
+    var m = document.getElementById("msgs");
+    if (m) {
+        m.className = "msg-error";
+        m.innerHTML = "تعذر تحميل الملفات المطلوبة. امسح بيانات المتصفح وأعد تثبيت التخزين المؤقت.";
+    }
+    setCardState("error");
+}
+function loadScript(src, isModule, onload) {
+    var s = document.createElement("script");
+    if (isModule) { s.type = "module"; }
+    s.src = src;
+    s.onerror = onScriptError;
+    if (onload) { s.onload = onload; }
+    document.head.appendChild(s);
+}
+function setCardState(state) {
+    var card = document.getElementById("card");
+    if (card) {
+        card.className = "card";
+        if (state === "success") { card.className = "card card-success"; }
+        if (state === "error")   { card.className = "card card-error"; }
+    }
+}
+function handleResult(txt) {
+    if (!txt) { return; }
+    if (txt.indexOf("فشل") !== -1) {
+        setCardState("error");
+        var tip = document.getElementById("failTip");
+        tip.className = "steps center show";
+        tip.innerHTML = "حاول مرة أخرى. إذا تكرر الفشل أعد تشغيل الجهاز بالكامل ثم أعد المحاولة.";
+        var btn = document.getElementById("retryBtn");
+        btn.className = "btn-retry show";
+        return;
+    }
+    if (txt.indexOf("بنجاح") !== -1 || txt.indexOf("بالفعل") !== -1) {
+            setCardState("success");
+        var nxt = document.getElementById("nextSteps");
+        nxt.className = "steps show";
+        return;
+    }
+    setCardState("");
+}
+if (isPS4 && branch) {
+    if (window.applicationCache && window.applicationCache.status === 0) {
+        window.location.replace(branch.cache);
+    } else {
+        if (branch.kind === "m900") {
+            loadScript("900/alert.js", true);
+        } else if (branch.kind === "css") {
+            loadScript("css/main.js", false, function () {
+                setTimeout(function () { doJb(); }, 500);
+            });
+        } else if (branch.kind === "lapse") {
+            loadScript("slopkit/chain_lapse.js", true);
+        } else if (branch.kind === "poops") {
+            loadScript("slopkit/chain_poops.js", true);
+        } else if (branch.kind === "jb") {
+            loadScript("slopkit/jb.js?v=10", true);
+        }
+    }
+}
+</script>
+</head>
+<body>
+
+<div class="brand">
+    <h1>بشير للإلكترونيات</h1>
+    <div class="sub">Bashir-9xx-13xx-Arabic UI</div>
+    <hr class="divider">
+    <span class="fw-badge" id="fwBadge"></span>
+</div>
+
+<div class="card" id="card">
+    <h1 id="msgs">جارٍ تحميل GoldHEN ... يُرجى الانتظار</h1>
+
+    <div class="steps center" id="failTip"></div>
+    <button class="btn-retry" id="retryBtn" onclick="location.reload();">إعادة المحاولة</button>
+
+    <div class="steps" id="nextSteps">
+        <b>بنجاح!</b> تم تفعيل GoldHEN على جهازك.<br>
+        <b>1.</b> عُد إلى الشاشة الرئيسية — ستجد تطبيق GoldHEN.<br>
+        <b>2.</b> اضغط Settings ← Debug Settings ← Package Installer لتثبيت تطبيقات منزلية (.pkg).<br>
+        <b>3.</b> استمتع! 🎮
+    </div>
+</div>
+
+<div class="footer">
+    الإصدارات المدعومة: <span class="gold" dir="ltr">9.00 — 13.52</span>
+    &nbsp;•&nbsp; GoldHEN <span class="gold" dir="ltr">2.4b18.12</span>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var m = document.getElementById("msgs");
+    var badge = document.getElementById("fwBadge");
+
+    if (!isPS4) {
+        m.className = "msg-error";
+        m.innerHTML = "مخصص فقط لأجهزة PS4 التي تعمل بإصدارات من 9.00 إلى 13.52.";
+        setCardState("error");
+        return;
+    }
+
+    badge.className = "fw-badge show";
+    badge.innerHTML = 'إصدار النظام: <span dir="ltr">' + fwVersion + "</span>";
+
+    if (!branch) {
+        var msg;
+        if (fwCode < 900) {
+            msg = 'هذا الموقع يدعم الإصدارات من 9.00 إلى 13.52 فقط. إصدارك: <span class="msg-error-text" dir="ltr">' + fwVersion + "</span>";
+        } else if (fwCode > 1352) {
+            msg = 'إصدارك أحدث من المدعوم حالياً (13.52). إصدارك: <span class="msg-error-text" dir="ltr">' + fwVersion + "</span>";
+        } else {
+            msg = 'لا توجد ثغرة عامة لهذا الإصدار حتى الآن. إصدارك: <span class="msg-error-text" dir="ltr">' + fwVersion + "</span>";
+        }
+        m.className = "msg-error";
+        m.innerHTML = msg;
+        setCardState("error");
+        return;
+    }
+
+     if (window.MutationObserver) {
+        var mo = new MutationObserver(function () {
+            handleResult(m.textContent || m.innerText || "");
+        });
+        mo.observe(m, { childList: true, characterData: true, subtree: true });
+    }
+
+    setTimeout(function () {
+        var card = document.getElementById("card");
+        if (card && card.className.indexOf("card-success") === -1 && card.className.indexOf("card-error") === -1) {
+            var tip = document.getElementById("failTip");
+            tip.className = "steps center show";
+            tip.innerHTML = "يستغرق الأمر وقتاً أطول من المعتاد — إذا تجمد الجهاز، أعد تشغيله وحاول مجدداً.";
+        }
+    }, 120000);
+});
+</script>
+
+</body>
+</html>
