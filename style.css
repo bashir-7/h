@@ -1,0 +1,258 @@
+/* ============================================================
+   GamerHack Host — واجهة عربية عصرية بأقصى ثبات
+   متوافق مع متصفح PS4 القديم (WebKit — بدون CSS variables/grid)
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    direction: rtl;
+    min-height: 100%;
+    background: #0b0e14 url('img.jpg') center / cover fixed no-repeat;
+    color: #f5f1e8;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* طبقة تعتيم متدرجة فوق الخلفية */
+html::before {
+    content: "";
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: -webkit-linear-gradient(top, rgba(6,9,15,.45), rgba(6,9,15,.78));
+    background: linear-gradient(180deg, rgba(6,9,15,.45), rgba(6,9,15,.78));
+    z-index: -1;
+}
+
+body {
+    min-height: 100vh;
+    background: transparent;
+    direction: rtl;
+    text-align: center;
+    overflow: hidden;
+    padding: 3vh 18px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/* ---------- الترويسة ---------- */
+
+.brand { margin-top: 1vh; -webkit-animation: fadeDown .8s ease both; animation: fadeDown .8s ease both; }
+
+.brand h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #f4d58a;
+    letter-spacing: .5px;
+    text-shadow: 0 0 22px rgba(244,213,138,.35), 0 3px 14px rgba(0,0,0,.8);
+}
+
+.brand .sub {
+    margin-top: 6px;
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(245,241,232,.72);
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.7);
+}
+
+.divider {
+    width: 240px;
+    height: 2px;
+    margin: 14px auto 0;
+    border: 0;
+    border-radius: 2px;
+    background: -webkit-linear-gradient(right, transparent, #f4d58a, transparent);
+    background: linear-gradient(270deg, transparent, #f4d58a, transparent);
+    opacity: .55;
+}
+
+/* شارة إصدار النظام */
+.fw-badge {
+    display: none;
+    margin: 12px auto 0;
+    padding: 5px 18px;
+    font-size: 16px;
+    color: #ffe9b0;
+    background: rgba(20,26,36,.72);
+    border: 1px solid rgba(244,213,138,.38);
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.35);
+}
+.fw-badge.show { display: inline-block; }
+
+/* ---------- بطاقة الحالة ---------- */
+
+.card {
+    margin-top: 5vh;
+    width: 88%;
+    max-width: 860px;
+    padding: 38px 34px 34px;
+    background: rgba(13,17,25,.66);
+    border: 1px solid rgba(244,213,138,.30);
+    border-radius: 22px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.07);
+    -webkit-transition: border-color .35s ease, -webkit-box-shadow .35s ease;
+    transition: border-color .35s ease, box-shadow .35s ease;
+    -webkit-animation: fadeUp .7s .15s ease both;
+    animation: fadeUp .7s .15s ease both;
+}
+
+/* حالة نجاح — توهج أخضر */
+.card.card-success {
+    border-color: rgba(110,230,140,.55);
+    box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 26px rgba(70,220,110,.16);
+}
+
+/* حالة فشل — حدود حمراء */
+.card.card-error {
+    border-color: rgba(255,110,130,.55);
+    box-shadow: 0 18px 50px rgba(0,0,0,.45), 0 0 26px rgba(255,70,90,.16);
+}
+
+/* رسالة الحالة — تستخدمها سكربتات الثغرات (id="msgs") */
+#msgs {
+    display: block;
+    max-width: 100%;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #f1cf79;
+    text-shadow: 0 2px 10px rgba(0,0,0,.8);
+}
+
+/* هذه الأصناف تطبّقها سكربتات الثغرات/واجهتنا */
+#msgs.msg-success { color: #8be89b; -webkit-animation: none; animation: none; text-shadow: 0 0 18px rgba(110,230,140,.35), 0 2px 10px rgba(0,0,0,.8); }
+#msgs.msg-info    { color: #f1cf79; -webkit-animation: none; animation: none; }
+#msgs.msg-error   { color: #ff7a8c !important; -webkit-animation: none; animation: none; text-shadow: 0 0 18px rgba(255,90,111,.30), 0 2px 10px rgba(0,0,0,.8); }
+
+.msg-error-text { color: #ff7a8c !important; }
+.msg-gold { color: #f1cf79 !important; }
+
+/* ---------- شريط تقدم التخزين المؤقت ---------- */
+
+.progress {
+    width: 78%;
+    height: 14px;
+    margin: 26px auto 6px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(244,213,138,.25);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: -webkit-linear-gradient(right, #c89b3c, #f4d58a);
+    background: linear-gradient(270deg, #c89b3c, #f4d58a);
+    box-shadow: 0 0 14px rgba(244,213,138,.45);
+    -webkit-transition: width .25s ease;
+    transition: width .25s ease;
+    position: relative;
+}
+
+
+/* خطوات + تلميحات */
+.steps {
+    display: none;
+    margin: 20px auto 0;
+    text-align: right;
+    font-size: 20px;
+    line-height: 2;
+    color: rgba(245,241,232,.88);
+    max-width: 580px;
+}
+.steps.show { display: block; }
+.steps b { color: #f4d58a; }
+.steps.center { text-align: center; }
+
+/* زر إعادة المحاولة */
+.btn-retry {
+    display: none;
+    margin: 22px auto 0;
+    padding: 12px 42px;
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: 600;
+    color: #0d1119;
+    background: -webkit-linear-gradient(top, #f4d58a, #d9b45f);
+    background: linear-gradient(180deg, #f4d58a, #d9b45f);
+    border: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(244,213,138,.30);
+}
+.btn-retry.show { display: inline-block; }
+
+/* ---------- سجل تصحيح slopkit (يُنشأ ديناميكياً) ---------- */
+
+/* jb.js يُنشئ #out و#state بدون إخفاء — نُظهرهما بشكل شبه شفاف */
+#out, #state {
+    position: fixed;
+    z-index: 50;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 11px;
+    direction: ltr;
+    text-align: left;
+    color: rgba(200,215,235,.8);
+    background: rgba(8,11,17,.55);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 8px;
+    padding: 6px 9px;
+}
+
+#out {
+    left: 10px;
+    bottom: 10px;
+    max-width: 46%;
+    max-height: 108px;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-all;
+    opacity: .5;
+}
+
+#state {
+    right: 10px;
+    bottom: 10px;
+    max-width: 46%;
+    opacity: .65;
+}
+
+/* ---------- التذييل ---------- */
+
+.footer {
+    margin-top: auto;
+    padding-top: 3vh;
+    font-size: 15px;
+    color: rgba(245,241,232,.5);
+    text-shadow: 0 2px 6px rgba(0,0,0,.8);
+    -webkit-animation: fadeUp .8s .3s ease both;
+    animation: fadeUp .8s .3s ease both;
+}
+.footer .gold { color: rgba(244,213,138,.75); }
+
+/* ---------- الحركات ---------- */
+
+@-webkit-keyframes fadeDown { from { opacity: 0; -webkit-transform: translateY(-18px); transform: translateY(-18px); } to { opacity: 1; -webkit-transform: none; transform: none; } }
+@keyframes fadeDown { from { opacity: 0; -webkit-transform: translateY(-18px); transform: translateY(-18px); } to { opacity: 1; -webkit-transform: none; transform: none; } }
+
+@-webkit-keyframes fadeUp { from { opacity: 0; -webkit-transform: translateY(18px); transform: translateY(18px); } to { opacity: 1; -webkit-transform: none; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; -webkit-transform: translateY(18px); transform: translateY(18px); } to { opacity: 1; -webkit-transform: none; transform: none; } }
+
+@-webkit-keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* ---------- شاشات أصغر ---------- */
+
+@media (max-height: 800px) {
+    .brand h1 { font-size: 32px; }
+    .card { margin-top: 3vh; padding: 26px 26px 22px; }
+    #msgs { font-size: 25px; }
+}

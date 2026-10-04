@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" manifest="css.manifest">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>بشير للإلكترونيات </title>
+<link rel="stylesheet" href="style.css">
+<script>
+/* إبقاء الرابط نظيفاً ومنع الرجوع لهذه الصفحة */
+history.replaceState(null, null, "index.html");
+
+var cacheDone = false;   /* هل اكتمل التثبيت؟ */
+var cacheFailed = false; /* هل حدث خطأ؟ */
+
+function setProgress(percent) {
+    var fill = document.getElementById("fill");
+    var pct = document.getElementById("pct");
+    if (fill) { fill.style.width = percent + "%"; }
+    if (pct) { pct.innerHTML = percent + "%"; }
+}
+
+function DLProgress(e) {
+    var percent = e.total ? Math.round(e.loaded / e.total * 100) : 0;
+    setProgress(percent);
+}
+
+
+function DisplayCacheProgress() {
+    cacheDone = true;
+    setProgress(100);
+    window.msgs.className = "msg-success";
+    window.msgs.innerHTML = "تم تثبيت ذاكرة التخزين المؤقت بنجاح ✔";
+    setTimeout(function () {
+        window.msgs.className = "msg-info";
+        window.msgs.innerHTML = "أكمل الخطوات التالية لتفعيل العمل دون اتصال:";
+        document.getElementById("steps").className = "steps show";
+    }, 1500);
+}
+
+function CacheError() {
+    cacheFailed = true;
+    var c = document.getElementById("card");
+    if (c) { c.className = "card card-error"; }
+    window.msgs.className = "msg-error";
+    window.msgs.innerHTML = "خطأ في تثبيت ذاكرة التخزين المؤقت!";
+    var tip = document.getElementById("tip");
+    tip.innerHTML = "امسح ذاكرة التخزين المؤقت للمتصفح من الإعدادات، ثم أعد المحاولة.";
+    tip.className = "steps show";
+    document.getElementById("retryBtn").className = "btn-retry show";
+}
+
+window.applicationCache.addEventListener("progress", DLProgress, false);
+window.applicationCache.oncached = function (e) { DisplayCacheProgress(); };
+window.applicationCache.onupdateready = function (e) { DisplayCacheProgress(); };
+window.applicationCache.onerror = function (e) { CacheError(); };
+
+/* حارس زمني: إذا توقف التقدم دون اكتمال، اعرض مساعدة بدل التعليق للأبد */
+setTimeout(function () {
+    if (!cacheDone && !cacheFailed) {
+        var tip = document.getElementById("tip");
+        tip.innerHTML = "توقف التقدم؟ تأكد من اتصال الإنترنت ثم اضغط إعادة المحاولة.";
+        tip.className = "steps center show";
+        document.getElementById("retryBtn").className = "btn-retry show";
+    }
+}, 180000);
+</script>
+</head>
+<body>
+
+<div class="brand">
+    <h1>بشير للإلكترونيات</h1>
+    <div class="sub">Bashir-9xx-13xx-Arabic UI</div>
+    <hr class="divider">
+</div>
+
+<div class="card" id="card">
+    <h1 id="msgs">بدء تثبيت ذاكرة التخزين المؤقت ...</h1>
+
+    <div class="progress">
+        <div class="progress-fill" id="fill"></div>
+    </div>
+    <div id="pct" style="font-size:18px;color:rgba(244,213,138,.85);margin-top:6px;">0%</div>
+
+    <div class="steps" id="steps">
+        <b>1.</b> افصل الاتصال بالشبكة (Wi-Fi أو الكابل)<br>
+        <b>2.</b> أغلق المتصفح تماماً<br>
+        <b>3.</b> أعد فتح المتصفح — سيعمل الجيلبريك دون إنترنت
+    </div>
+    <div class="steps" id="tip" style="text-align:center;"></div>
+
+    <button class="btn-retry" id="retryBtn" onclick="location.reload();">إعادة المحاولة</button>
+</div>
+
+<div class="footer">
+    الإصدارات المدعومة: <span class="gold" dir="ltr">9.00 — 13.52</span>
+    &nbsp;•&nbsp; GoldHEN <span class="gold" dir="ltr">2.4b18.12</span>
+</div>
+
+</body>
+</html>
